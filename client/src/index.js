@@ -1,10 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button} from 'antd-mobile'
+import {Provider} from 'react-redux'
+import {BrowserRouter, Route, Link, Switch} from 'react-router-dom' 
 
+import store from './store/store'
 import App from './App'
 
+
+
+
+
 ReactDOM.render(
-  <Button>button</Button>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Route path='/' component={App}></Route>
+    </BrowserRouter>
+
+  </Provider>,
   document.getElementById('root')
 );
