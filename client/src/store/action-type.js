@@ -1,0 +1,1 @@
+export const SET_QUESTION = 'set_question'

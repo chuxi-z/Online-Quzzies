@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Link, Switch} from 'react-router-dom'
 
 import store from './store/store'
 import App from './App'
+import quizzes from './view/quizzes';
 
 
 
@@ -13,7 +14,8 @@ import App from './App'
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Route path='/' component={App}></Route>
+      <Route path='/' exact component={App}></Route>
+      <Route path='/quizze' component={quizzes}></Route>
     </BrowserRouter>
 
   </Provider>,

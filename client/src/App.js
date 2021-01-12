@@ -1,38 +1,26 @@
 import React from 'react';
-import axios from 'axios'
 import {connect} from 'react-redux'
+import {Button} from 'antd-mobile'
 
-import {a, b} from './store/actions'
 
 
 class App extends React.Component{
-
-    state = {
-      question: null
-    }
   
-    async componentWillMount(){
-      let page = 2
-      let address = `http://localhost:8080/api/question?page=${page}`
-      let res = await axios.get(address)
-  
-      console.log(res.data);
-      this.setState({
-        question: res.data.toString()
-      })
-    }
-  
-  
-    render(){
-      return <div>
-        {this.state.question}
-      </div>
-    }
+  gotoQuestionPage = () =>{
+    this.props.history.push('/quizze')
   }
+  
+  
+  render(){
+    return <div>
+      <Button onClick={this.gotoQuestionPage}>start quizzes</Button>
+    </div>
+  }
+}
   
   
   
   export default connect(
     state => ({count: state}),
-    {a, b}
+    {}
   )(App)
