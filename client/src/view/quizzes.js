@@ -14,27 +14,72 @@ class App extends React.Component{
 
     this.state = {
       current: 0,
-      questionList: []
+      optionStyle: ["optionItem", "optionItem", "optionItem", "optionItem"],
+      isChoose: false,
+      score: 0,
+      page: parseInt(Math.random()*1600)
     }
   }
 
-  componentWillMount(){
-    this.props.getQuestionAsync()
+  componentDidMount(){
+    
+    this.props.getQuestionAsync(this.state.page)
   }
 
 
-  answerEvent = () =>{
-    let {current} = this.state
+  answerEvent = (index) =>{
+    if(this.state.isChoose){
+      return
+    }
 
     this.setState({
-      current: ++current
+      isChoose: true
     })
+
+    let {current} = this.state
+    let answer = this.props.questionList[current].answer
+    let optionStyle = this.state.optionStyle
+
+    if((index+1) === Number(answer)){
+      optionStyle[index] = "optionItem correct"
+      let {score} = this.state
+      score += 10
+      
+      this.setState({
+        optionStyle,
+        score
+      })
+    }
+    else{
+      optionStyle[index] = "optionItem error"
+      optionStyle[ Number(answer)-1] = "optionItem correct"
+
+      this.setState({
+        optionStyle: optionStyle
+      })
+    }
+
+    setTimeout(() =>{
+      let {current} = this.state
+      current++
+      if(current == 10){
+        this.props.history.push('/result', {score: this.state.score})
+      }
+
+      this.setState({
+        current,
+        optionStyle: ["optionItem", "optionItem", "optionItem", "optionItem"],
+        isChoose: false
+      })
+    },1000)
+    
   }
   
   render(){
     let questions = this.props.questionList
     let {current} = this.state
-    console.log(questions);
+    let ostyle = this.state.optionStyle
+    // console.log(questions);
 
     if(questions.length > 0){
       let options = JSON.parse(questions[current].options)
@@ -46,7 +91,7 @@ class App extends React.Component{
           Options: {
             options.map((item, index) =>{
               return (
-                <div className="optionItem" key={index} onClick={this.answerEvent}>
+                <div className={ostyle[index]} key={index} onClick={() =>this.answerEvent(index)}>
                   {index+1} : {item}
                 </div>
               )

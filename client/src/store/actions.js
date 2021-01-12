@@ -19,7 +19,7 @@ export function getQuestions(questionList){
 
 
 
-export const getQuestionAsync = (page=2) =>{
+export const getQuestionAsync = (page) =>{
     return async dispatch =>{
         let address = base_url + `/api/question?page=${page}`
         let response = await axios.get(address)

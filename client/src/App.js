@@ -13,7 +13,11 @@ class App extends React.Component{
   
   render(){
     return <div>
-      <Button onClick={this.gotoQuestionPage}>start quizzes</Button>
+      <div>
+        <Button onClick={this.gotoQuestionPage}>start quizzes</Button>
+      </div>
+
+      
     </div>
   }
 }
