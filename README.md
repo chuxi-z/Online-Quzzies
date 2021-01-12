@@ -1,5 +1,7 @@
 ## Quizzes web app
 Applied React-redux to manage the state.
+Used Express for back-end, react for front-end.
+
 
 
 ## Question
